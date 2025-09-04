@@ -3,9 +3,6 @@ import pandas as pd
 import plotly.express as px
 
 def plot_pie(values, labels, title):
-    """
-    Plot a hoverable pie chart using Plotly and display in Streamlit.
-    """
     values = values.clip(lower=0)
     if values.sum() == 0:
         st.write(f"No positive values to display for {title}")
@@ -20,9 +17,6 @@ def plot_pie(values, labels, title):
     st.plotly_chart(fig, use_container_width=True)
 
 def cluster_graphs(cluster_means, cluster_id, spending_cols, job_cols):
-    """
-    Display pie charts for a single cluster: spending, job categories
-    """
     st.subheader(f"Cluster {cluster_id} graphs")
 
     plot_pie(cluster_means.loc[cluster_id, spending_cols], spending_cols, "Spending Distribution")
@@ -30,9 +24,6 @@ def cluster_graphs(cluster_means, cluster_id, spending_cols, job_cols):
     plot_pie(cluster_means.loc[cluster_id, job_cols], job_cols, "Job Categories")
 
 def plot_cluster_frequencies(data_with_clusters):
-    """
-    Plot bar chart of cluster frequencies from uploaded data
-    """
     freq = data_with_clusters['Cluster'].value_counts().sort_index()
     df_freq = pd.DataFrame({
         'Cluster': freq.index.astype(str),
